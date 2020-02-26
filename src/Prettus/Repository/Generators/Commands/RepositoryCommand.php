@@ -110,11 +110,9 @@ class RepositoryCommand extends Command
 
         }
 
-        $model = $modelGenerator->getRootNamespace() . '\\' . $modelGenerator->getName();
-        $model = str_replace([
-            "\\",
-            '/'
-        ], '\\', $model);
+        $model = $modelGenerator->getRootNamespace() . '\\' .$this->option('database').'\\'. $modelGenerator->getName();
+        $model = str_replace(["\\",'/'], '\\', $model);
+
 
         try {
             (new RepositoryEloquentGenerator([
@@ -123,7 +121,7 @@ class RepositoryCommand extends Command
                 'validator' => $this->option('validator'),
                 'force'     => $this->option('force'),
                 'model'     => $model ,
-                'Cfolder' => $this->option('Cfolder'),
+                'Cfolder' => str_replace(["\\",'/'], '\\', $this->option('Cfolder')),
                 'Connection' =>$this->option('Connection'),
                 'database' =>$this->option('database'),
             ]))->run();

@@ -134,6 +134,9 @@ class MigrationGenerator extends Generator
                     'table'       => $parser->getTable(),
                     'fields_up'   => $this->getSchemaParser()->up(),
                     'fields_down' => $this->getSchemaParser()->down(),
+                    'Connection' => $this->Connection,
+                    'Cfolder' => $this->Cfolder,
+
                 ];
                 break;
 
@@ -146,6 +149,8 @@ class MigrationGenerator extends Generator
                     'table'       => $parser->getTable(),
                     'fields_down' => $this->getSchemaParser()->up(),
                     'fields_up'   => $this->getSchemaParser()->down(),
+                    'Connection' => $this->Connection,
+                    'Cfolder' => $this->Cfolder,
                 ];
                 break;
             default:
@@ -154,6 +159,8 @@ class MigrationGenerator extends Generator
                     'class'  => 'C'.lcfirst($this->getClass()),
                     'table'  => $parser->getTable(),
                     'fields' => $this->getSchemaParser()->up(),
+                    'Connection' => $this->Connection,
+                    'Cfolder' => $this->Cfolder,
                 ];
 
                 break;

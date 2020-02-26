@@ -1,6 +1,6 @@
 <?php
 
-$NAMESPACE$
+namespace App\Repositories\$CFOLDER$;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -34,5 +34,5 @@ class $CLASS$RepositoryEloquent extends BaseRepository implements $CLASS$Reposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

@@ -67,7 +67,10 @@ class RepositoryInterfaceGenerator extends Generator
     public function getReplacements()
     {
         return array_merge(parent::getReplacements(), [
-            'fillable' => $this->getFillable()
+            'fillable' => $this->getFillable(),
+            'Cfolder' => str_replace(["\\",'/'], '\\', $this->option('Cfolder')),
+            'Connection'   => $this->options['Connection'] ,
+            
         ]);
     }
 

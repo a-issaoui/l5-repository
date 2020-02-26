@@ -76,7 +76,10 @@ class RepositoryEloquentGenerator extends Generator
             'use_validator' => $this->getValidatorUse(),
             'validator'     => $this->getValidatorMethod(),
             'repository'    => $repository,
-            'model'         => isset($this->options['model']) ? $this->options['model'] : ''
+            'model'         => isset($this->options['model']) ? $this->options['model'] : '',
+            'Cfolder' => str_replace(["\\",'/'], '\\', $this->option('Cfolder')),
+            'Connection'   => $this->options['Connection'] ,
+
         ]);
     }
 
@@ -123,9 +126,11 @@ class RepositoryEloquentGenerator extends Generator
             'name'  => $this->name,
             'rules' => $this->rules,
             'force' => $this->force,
+            'Cfolder' => str_replace(["\\",'/'], '\\', $this->option('Cfolder')),
+            'Connection'   => $this->options['Connection'] ,
         ]);
 
-        $validator = $validatorGenerator->getRootNamespace() . '\\' . $validatorGenerator->getName();
+        $validator = $validatorGenerator->getRootNamespace() . '\\' . $this->option('Cfolder') . '\\' . $validatorGenerator->getName();
 
         return str_replace([
             "\\",

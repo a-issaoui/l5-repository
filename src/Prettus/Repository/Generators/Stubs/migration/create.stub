@@ -15,8 +15,8 @@ class $CLASS$ extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('$TABLE$', function(Blueprint $table) {
-            $table->increments('id');
+		Schema::connection('$CONNECTION$')->create('$TABLE$', function(Blueprint $table) {
+            $table->bigIncrements('id');
 $FIELDS$
             $table->timestamps();
 		});
@@ -29,6 +29,6 @@ $FIELDS$
 	 */
 	public function down()
 	{
-		Schema::drop('$TABLE$');
+		Schema::connection('$CONNECTION$')->dropIfExists('$TABLE$');
 	}
 }

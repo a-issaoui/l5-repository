@@ -98,9 +98,9 @@ class ControllerGenerator extends Generator
      */
     public function getReplacements()
     {
-       
-     
-     
+
+
+
         /***Controlller Folder****/
         $words = explode('/', $this->name); // Break words into array
         $noofwords = count($words); // Find out how many
@@ -142,7 +142,7 @@ class ControllerGenerator extends Generator
             'name' => $this->name,
         ]);
 
-        $validator = $validatorGenerator->getRootNamespace() . '\\' . $validatorGenerator->getName();
+        $validator = $validatorGenerator->getRootNamespace() . '\\'.str_replace(["\\",'/'], '\\', $this->option('Cfolder')) . '\\'. $validatorGenerator->getName();
 
         return 'use ' . str_replace([
             "\\",
@@ -162,7 +162,7 @@ class ControllerGenerator extends Generator
             'name' => $this->name,
         ]);
 
-        $repository = $repositoryGenerator->getRootNamespace() . '\\' . $repositoryGenerator->getName();
+        $repository = $repositoryGenerator->getRootNamespace() . '\\' .str_replace(["\\",'/'], '\\', $this->option('Cfolder')) . '\\'. $repositoryGenerator->getName();
 
         return 'use ' . str_replace([
             "\\",

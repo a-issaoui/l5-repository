@@ -1,7 +1,8 @@
 <?php
 
-$NAMESPACE$
+namespace App\Http\Controllers\$CFOLDER$;
 
+use App\Http\Controllers\Controller;
 use $APPNAME$Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -85,7 +86,7 @@ class $CONTROLLER$Controller extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -196,6 +197,6 @@ class $CONTROLLER$Controller extends Controller
             ]);
         }
 
-       
+
     }
 }

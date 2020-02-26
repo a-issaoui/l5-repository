@@ -25,7 +25,7 @@ class BindingsGenerator extends Generator
     public function run()
     {
 
-        
+
         // Add entity repository binding to the repository service provider
         $provider = \File::get($this->getPath());
         $repositoryInterface = '\\' . $this->getRepository() . "::class";
@@ -72,9 +72,11 @@ class BindingsGenerator extends Generator
     {
         $repositoryGenerator = new RepositoryInterfaceGenerator([
             'name' => $this->name,
+            'Cfolder'=>$this->Cfolder,
+            'Connection'=>$this->Connection,
         ]);
 
-        $repository = $repositoryGenerator->getRootNamespace() . '\\' . $repositoryGenerator->getName();
+        $repository = $repositoryGenerator->getRootNamespace() . '\\'  .str_replace(["\\",'/'], '\\', $this->option('Cfolder')).'\\'.$repositoryGenerator->getName();
 
         return str_replace([
             "\\",
@@ -93,7 +95,7 @@ class BindingsGenerator extends Generator
             'name' => $this->name,
         ]);
 
-        $repository = $repositoryGenerator->getRootNamespace() . '\\' . $repositoryGenerator->getName();
+        $repository = $repositoryGenerator->getRootNamespace() . '\\' . str_replace(["\\",'/'], '\\', $this->option('Cfolder')).'\\'.$repositoryGenerator->getName();
 
         return str_replace([
             "\\",

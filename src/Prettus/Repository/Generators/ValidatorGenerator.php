@@ -46,7 +46,7 @@ class ValidatorGenerator extends Generator
      */
     public function getPath()
     {
-       
+
         return $this->getBasePath() . '/' . parent::getConfigGeneratorClassPath($this->getPathConfigNode(), true) .'/'.$this->Cfolder. '/' . $this->getName() . 'Validator.php';
     }
 
@@ -70,6 +70,8 @@ class ValidatorGenerator extends Generator
 
         return array_merge(parent::getReplacements(), [
             'rules' => $this->getRules(),
+            'Cfolder' => str_replace(["\\",'/'], '\\', $this->option('Cfolder')),
+            'Connection'   => $this->options['Connection'] ,
         ]);
     }
 

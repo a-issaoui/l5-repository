@@ -1,6 +1,6 @@
 <?php
 
-$NAMESPACE$
+namespace App\Models\$CONNECTION$;
 
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;

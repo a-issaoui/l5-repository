@@ -59,6 +59,8 @@ class BindingsCommand extends Command
             $bindingGenerator = new BindingsGenerator([
                 'name' => $this->argument('name'),
                 'force' => $this->option('force'),
+                'Cfolder' => str_replace(["\\",'/'], '\\', $this->option('Cfolder')),
+                'Connection'   => $this->option('Connection') ,
             ]);
             // generate repository service provider
             if (!file_exists($bindingGenerator->getPath())) {
