@@ -134,15 +134,23 @@ abstract class Generator
      */
     public function getName()
     {
-        $name = $this->name;
+
+
+        $name = substr($this->name, strrpos($this->name, '/') + 1);
+/*
         if (Str::contains($this->name, '\\')) {
             $name = str_replace('\\', '/', $this->name);
         }
         if (Str::contains($this->name, '/')) {
             $name = str_replace('/', '/', $this->name);
         }
-
+*/
         return Str::studly(str_replace(' ', '/', ucwords(str_replace('/', ' ', $name))));
+    }
+
+    public function getPparams()
+    {
+        return($this->option('Cfolder') ." ". $this->option('Connection')." ".$this->option('database')) ;
     }
 
 
@@ -164,6 +172,7 @@ abstract class Generator
      */
     public function getClass()
     {
+
         return Str::studly(class_basename($this->getName()));
     }
 
@@ -199,7 +208,9 @@ abstract class Generator
      */
     public function getConfigGeneratorClassPath($class, $directoryPath = false)
     {
+   
         switch ($class) {
+
             case ('models' === $class):
                 $path = config('repository.generator.paths.models', 'Entities');
                 break;
@@ -282,6 +293,8 @@ abstract class Generator
      */
     public function run()
     {
+
+
         $this->setUp();
         if ($this->filesystem->exists($path = $this->getPath()) && !$this->force) {
             throw new FileAlreadyExistsException($path);
@@ -301,6 +314,7 @@ abstract class Generator
      */
     public function getOptions()
     {
+
         return $this->options;
     }
 

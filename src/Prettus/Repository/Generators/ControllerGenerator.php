@@ -2,7 +2,7 @@
 namespace Prettus\Repository\Generators;
 
 use Illuminate\Support\Str;
-
+use Prettus\Repository\Generators\Commands\EntityCommand ;
 /**
  * Class ControllerGenerator
  * @package Prettus\Repository\Generators
@@ -45,8 +45,19 @@ class ControllerGenerator extends Generator
      */
     public function getPath()
     {
-        return $this->getBasePath() . '/' . parent::getConfigGeneratorClassPath($this->getPathConfigNode(), true) . '/' . $this->getControllerName() . 'Controller.php';
-    }
+        /***Controlller Folder****/
+        $words = explode('/', $this->name); // Break words into array
+        $noofwords = count($words); // Find out how many
+        unset($words[$noofwords-1]); // remove the last one (-1 because of zero-index)
+        $Cfolder = implode('/', $words); //put back together
+
+
+        $controller = $this->getBasePath() . '/' . parent::getConfigGeneratorClassPath($this->getPathConfigNode(), true) . '/' . $Cfolder. '/'. $this->getControllerName() . 'Controller.php';
+
+
+        return $controller;
+
+         }
 
     /**
      * Get base path of destination file.
@@ -66,7 +77,7 @@ class ControllerGenerator extends Generator
     public function getControllerName()
     {
 
-        return ucfirst($this->getPluralName());
+        return ucfirst($this->getClass());
     }
 
     /**
@@ -87,6 +98,14 @@ class ControllerGenerator extends Generator
      */
     public function getReplacements()
     {
+       
+     
+     
+        /***Controlller Folder****/
+        $words = explode('/', $this->name); // Break words into array
+        $noofwords = count($words); // Find out how many
+        unset($words[$noofwords-1]); // remove the last one (-1 because of zero-index)
+        $Cfolder = implode('\\', $words); //put back together
 
         return array_merge(parent::getReplacements(), [
             'controller' => $this->getControllerName(),
@@ -95,6 +114,10 @@ class ControllerGenerator extends Generator
             'validator'  => $this->getValidator(),
             'repository' => $this->getRepository(),
             'appname'    => $this->getAppNamespace(),
+            'cfolder'    => $Cfolder,
+            'connection' => $this->connection,
+            'database' => $this->database ,
+
         ]);
     }
 

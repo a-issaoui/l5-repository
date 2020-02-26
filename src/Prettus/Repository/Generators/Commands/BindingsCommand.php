@@ -115,6 +115,27 @@ class BindingsCommand extends Command
                 'Force the creation if file already exists.',
                 null
             ],
+            [
+                'Cfolder',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The Controller folder attributes.',
+                null
+            ],
+            [
+                'Connection',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
+            [
+                'database',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
         ];
     }
 }

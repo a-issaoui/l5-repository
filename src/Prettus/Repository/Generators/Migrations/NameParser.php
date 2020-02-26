@@ -54,6 +54,7 @@ class NameParser
     public function __construct($name)
     {
         $this->name = $name;
+
         $this->data = $this->fetchData();
     }
 
@@ -64,6 +65,7 @@ class NameParser
      */
     protected function fetchData()
     {
+     
         return explode('_', $this->name);
     }
 

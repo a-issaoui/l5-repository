@@ -59,6 +59,9 @@ class ValidatorCommand extends Command
                 'name' => $this->argument('name'),
                 'rules' => $this->option('rules'),
                 'force' => $this->option('force'),
+                'Cfolder' => $this->option('Cfolder'),
+                'database' => $this->option('database'),
+                'Connection' => $this->option('force'),
             ]))->run();
             $this->info("Validator created successfully.");
         } catch (FileAlreadyExistsException $e) {
@@ -107,6 +110,27 @@ class ValidatorCommand extends Command
                 'f',
                 InputOption::VALUE_NONE,
                 'Force the creation if file already exists.',
+                null
+            ],
+            [
+                'Cfolder',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The Controller folder .',
+                null
+            ],
+            [
+                'Connection',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
+            [
+                'database',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database  name.',
                 null
             ],
         ];

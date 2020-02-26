@@ -42,6 +42,7 @@ class CriteriaGenerator extends Generator
      */
     public function getPath()
     {
+     
         return $this->getBasePath() . '/' . parent::getConfigGeneratorClassPath($this->getPathConfigNode(), true) . '/' . $this->getName() . 'Criteria.php';
     }
 

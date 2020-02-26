@@ -54,7 +54,8 @@ class RepositoryCommand extends Command
      * @return void
      */
     public function handle(){
-        $this->laravel->call([$this, 'fire'], func_get_args());
+
+       $this->laravel->call([$this, 'fire'], func_get_args());
     }
 
     /**
@@ -64,35 +65,49 @@ class RepositoryCommand extends Command
      */
     public function fire()
     {
+
+
         $this->generators = new Collection();
 
         $migrationGenerator = new MigrationGenerator([
-            'name'   => 'create_' . Str::snake(Str::plural($this->argument('name'))) . '_table',
+            'name'   => 'create_' . Str::snake(Str::plural(substr($this->argument('name'), strrpos($this->argument('name'), '/') + 1))) . '_table',
             'fields' => $this->option('fillable'),
             'force'  => $this->option('force'),
+            'Cfolder' => $this->option('Cfolder'),
+            'Connection' =>$this->option('Connection'),
+            'database' =>$this->option('database'),
         ]);
 
         if (!$this->option('skip-migration')) {
             $this->generators->push($migrationGenerator);
+            $this->info("Migration created successfully.");
         }
 
         $modelGenerator = new ModelGenerator([
             'name'     => $this->argument('name'),
             'fillable' => $this->option('fillable'),
-            'force'    => $this->option('force')
+            'force'    => $this->option('force'),
+            'Cfolder' => $this->option('Cfolder'),
+            'Connection' =>$this->option('Connection'),
+            'database' =>$this->option('database')
         ]);
 
         if (!$this->option('skip-model')) {
             $this->generators->push($modelGenerator);
+            $this->info("Model created successfully.");
         }
 
         $this->generators->push(new RepositoryInterfaceGenerator([
             'name'  => $this->argument('name'),
             'force' => $this->option('force'),
+            'Cfolder' => $this->option('Cfolder'),
+            'Connection' =>$this->option('Connection'),
+            'database' =>$this->option('database'),
         ]));
 
         foreach ($this->generators as $generator) {
             $generator->run();
+
         }
 
         $model = $modelGenerator->getRootNamespace() . '\\' . $modelGenerator->getName();
@@ -107,7 +122,10 @@ class RepositoryCommand extends Command
                 'rules'     => $this->option('rules'),
                 'validator' => $this->option('validator'),
                 'force'     => $this->option('force'),
-                'model'     => $model
+                'model'     => $model ,
+                'Cfolder' => $this->option('Cfolder'),
+                'Connection' =>$this->option('Connection'),
+                'database' =>$this->option('database'),
             ]))->run();
             $this->info("Repository created successfully.");
         } catch (FileAlreadyExistsException $e) {
@@ -132,6 +150,7 @@ class RepositoryCommand extends Command
                 'The name of class being generated.',
                 null
             ],
+
         ];
     }
 
@@ -185,6 +204,27 @@ class RepositoryCommand extends Command
                 InputOption::VALUE_NONE,
                 'Skip the creation of a model.',
                 null,
+            ],
+            [
+                'Cfolder',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The Controller folder .',
+                null
+            ],
+            [
+                'Connection',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
+            [
+                'database',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database  name.',
+                null
             ],
         ];
     }

@@ -40,7 +40,8 @@ class MigrationGenerator extends Generator
      */
     public function getPath()
     {
-        return $this->getBasePath() . $this->getFileName() . '.php';
+
+        return $this->getBasePath() . $this->database.'/'.$this->getFileName(). '.php';
     }
 
 
@@ -73,6 +74,7 @@ class MigrationGenerator extends Generator
      */
     public function getMigrationName()
     {
+
         return strtolower($this->name);
     }
 
@@ -106,6 +108,7 @@ class MigrationGenerator extends Generator
      */
     public function getNameParser()
     {
+
         return new NameParser($this->name);
     }
 
@@ -127,7 +130,7 @@ class MigrationGenerator extends Generator
             case 'insert':
                 $file = 'change';
                 $replacements = [
-                    'class'       => $this->getClass(),
+                    'class'       => 'C'.lcfirst($this->getClass()),
                     'table'       => $parser->getTable(),
                     'fields_up'   => $this->getSchemaParser()->up(),
                     'fields_down' => $this->getSchemaParser()->down(),
@@ -139,7 +142,7 @@ class MigrationGenerator extends Generator
             case 'alter':
                 $file = 'change';
                 $replacements = [
-                    'class'       => $this->getClass(),
+                    'class'       => 'C'.lcfirst($this->getClass()),
                     'table'       => $parser->getTable(),
                     'fields_down' => $this->getSchemaParser()->up(),
                     'fields_up'   => $this->getSchemaParser()->down(),
@@ -148,10 +151,11 @@ class MigrationGenerator extends Generator
             default:
                 $file = 'create';
                 $replacements = [
-                    'class'  => $this->getClass(),
+                    'class'  => 'C'.lcfirst($this->getClass()),
                     'table'  => $parser->getTable(),
                     'fields' => $this->getSchemaParser()->up(),
                 ];
+
                 break;
         }
         $path = config('repository.generator.stubsOverridePath', __DIR__);

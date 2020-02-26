@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class ControllerCommand
+ * Class EducasoftControllerCommand
  * @package Prettus\Repository\Generators\Commands
  * @author Anderson Andrade <contato@andersonandra.de>
  */
@@ -38,7 +38,7 @@ class ControllerCommand extends Command
     protected $type = 'Controller';
 
     /**
-     * ControllerCommand constructor.
+     * EducasoftControllerCommand constructor.
      */
     public function __construct()
     {
@@ -53,6 +53,7 @@ class ControllerCommand extends Command
      * @return void
      */
     public function handle(){
+
         $this->laravel->call([$this, 'fire'], func_get_args());
     }
 
@@ -63,6 +64,7 @@ class ControllerCommand extends Command
      */
     public function fire()
     {
+
         try {
             // Generate create request for controller
             $this->call('make:request', [
@@ -77,6 +79,10 @@ class ControllerCommand extends Command
             (new ControllerGenerator([
                 'name' => $this->argument('name'),
                 'force' => $this->option('force'),
+                'Cfolder' => $this->option('Cfolder'),
+                'Connection' => $this->option('Connection'),
+                'database' => $this->option('database'),
+
             ]))->run();
 
             $this->info($this->type . ' created successfully.');
@@ -103,6 +109,7 @@ class ControllerCommand extends Command
                 'The name of model for which the controller is being generated.',
                 null
             ],
+
         ];
     }
 
@@ -122,6 +129,28 @@ class ControllerCommand extends Command
                 'Force the creation if file already exists.',
                 null
             ],
+            [
+                'Cfolder',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The Controller folder .',
+                null
+            ],
+            [
+                'Connection',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
+            [
+                'database',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database  name.',
+                null
+            ],
+
         ];
     }
 }

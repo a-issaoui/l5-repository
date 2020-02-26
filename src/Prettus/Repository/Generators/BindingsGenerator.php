@@ -25,7 +25,7 @@ class BindingsGenerator extends Generator
     public function run()
     {
 
-
+        
         // Add entity repository binding to the repository service provider
         $provider = \File::get($this->getPath());
         $repositoryInterface = '\\' . $this->getRepository() . "::class";

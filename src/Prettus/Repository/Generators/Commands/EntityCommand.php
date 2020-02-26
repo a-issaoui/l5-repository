@@ -14,6 +14,10 @@ use Symfony\Component\Console\Input\InputOption;
 class EntityCommand extends Command
 {
 
+
+
+
+
     /**
      * The name of command.
      *
@@ -26,7 +30,7 @@ class EntityCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create a new entity.';
+    protected $description = 'Create New  Model, Repository, Validator, Observer, Controller .... ';
 
     /**
      * @var Collection
@@ -40,6 +44,7 @@ class EntityCommand extends Command
      * @return void
      */
     public function handle(){
+        
         $this->laravel->call([$this, 'fire'], func_get_args());
     }
 
@@ -51,48 +56,71 @@ class EntityCommand extends Command
     public function fire()
     {
 
-        if ($this->confirm('Would you like to create a Presenter? [y|N]')) {
+        $controllername = $this->option('Cfolder'). "/" .ucfirst(substr($this->argument('name'), strrpos($this->argument('name'), '/') + 1));
+
+         $database = explode('/', $this->argument('name'))[0];
+
+   /*     if ($this->confirm('Would you like to create a Presenter? [y|N]')) {
             $this->call('make:presenter', [
                 'name'    => $this->argument('name'),
                 '--force' => $this->option('force'),
             ]);
         }
 
-        $validator = $this->option('validator');
+
         if (is_null($validator) && $this->confirm('Would you like to create a Validator? [y|N]')) {
             $validator = 'yes';
         }
 
-        if ($validator == 'yes') {
+        if ($validator == 'yes') { */
+        $validator = $this->option('validator');
             $this->call('make:validator', [
-                'name'    => $this->argument('name'),
+                'name'    => $controllername,
                 '--rules' => $this->option('rules'),
                 '--force' => $this->option('force'),
+                '--Cfolder' => $this->option('Cfolder'),
+                '--Connection' =>$this->option('Connection'),
+                '--database' =>$database,
             ]);
-        }
 
-        if ($this->confirm('Would you like to create a Controller? [y|N]')) {
+
+
+
+      //  if ($this->confirm('Would you like to create a Controller? [y|N]')) { //
+
 
             $resource_args = [
-                'name'    => $this->argument('name')
-            ];
+                'name'    => $controllername,
+                '--Cfolder' => $this->option('Cfolder'),
+                '--Connection' =>$this->option('Connection'),
+                '--database' =>$database,
+                  ];
 
             // Generate a controller resource
-            $controller_command = ((float) app()->version() >= 5.5  ? 'make:rest-controller' : 'make:resource');
+            $controller_command = ((float) app()->version() >= 5.5  ? 'make:rest-controller' : 'make:resourcex');
+
             $this->call($controller_command, $resource_args);
-        }
+
+
 
         $this->call('make:repository', [
-            'name'        => $this->argument('name'),
+            'name'        => $controllername,
             '--fillable'  => $this->option('fillable'),
             '--rules'     => $this->option('rules'),
             '--validator' => $validator,
-            '--force'     => $this->option('force')
+            '--force'     => $this->option('force'),
+            '--Cfolder' => $this->option('Cfolder'),
+            '--Connection' =>$this->option('Connection'),
+            '--database' =>$database,
         ]);
 
         $this->call('make:bindings', [
             'name'    => $this->argument('name'),
-            '--force' => $this->option('force')
+            '--force' => $this->option('force'),
+            '--Cfolder' => $this->option('Cfolder'),
+            '--Connection' =>$this->option('Connection'),
+            '--database' =>$database,
+
         ]);
     }
 
@@ -123,6 +151,28 @@ class EntityCommand extends Command
     public function getOptions()
     {
         return [
+
+            [
+                'Cfolder',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The Controller folder attributes.',
+                null
+            ],
+            [
+                'Connection',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
+            [
+                'database',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
             [
                 'fillable',
                 null,

@@ -99,7 +99,28 @@ class TransformerCommand extends Command
                 InputOption::VALUE_NONE,
                 'Force the creation if file already exists.',
                 null
-            ]
+            ],
+            [
+                'Cfolder',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The Controller folder .',
+                null
+            ],
+            [
+                'Connection',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database connection name.',
+                null
+            ],
+            [
+                'database',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The database  name.',
+                null
+            ],
         ];
     }
 }

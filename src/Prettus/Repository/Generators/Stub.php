@@ -50,6 +50,7 @@ class Stub
      */
     public static function create($path, array $replaces = [])
     {
+      
         return new static($path, $replaces);
     }
 

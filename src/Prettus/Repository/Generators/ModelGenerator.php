@@ -46,7 +46,8 @@ class ModelGenerator extends Generator
      */
     public function getPath()
     {
-        return $this->getBasePath() . '/' . parent::getConfigGeneratorClassPath($this->getPathConfigNode(), true) . '/' . $this->getName() . '.php';
+
+        return $this->getBasePath() . '/' . parent::getConfigGeneratorClassPath($this->getPathConfigNode(), true) . '/' .$this->database.'/'.  substr($this->name, strrpos($this->name, '/') + 1).'.php';
     }
 
     /**

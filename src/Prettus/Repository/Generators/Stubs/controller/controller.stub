@@ -2,13 +2,11 @@
 
 $NAMESPACE$
 
-use Illuminate\Http\Request;
-
 use $APPNAME$Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use $APPNAME$Http\Requests\$CLASS$CreateRequest;
-use $APPNAME$Http\Requests\$CLASS$UpdateRequest;
+use $APPNAME$Http\Requests\$CFOLDER$\$CLASS$CreateRequest;
+use $APPNAME$Http\Requests\$CFOLDER$\$CLASS$UpdateRequest;
 $REPOSITORY$
 $VALIDATOR$
 
@@ -48,8 +46,7 @@ class $CONTROLLER$Controller extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $$PLURAL$ = $this->repository->all();
+         $$PLURAL$ = $this->repository->all();
 
         if (request()->wantsJson()) {
 
@@ -58,7 +55,7 @@ class $CONTROLLER$Controller extends Controller
             ]);
         }
 
-        return view('$PLURAL$.index', compact('$PLURAL$'));
+
     }
 
     /**
@@ -97,7 +94,7 @@ class $CONTROLLER$Controller extends Controller
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+
         }
     }
 
@@ -119,7 +116,7 @@ class $CONTROLLER$Controller extends Controller
             ]);
         }
 
-        return view('$PLURAL$.show', compact('$SINGULAR$'));
+
     }
 
     /**
@@ -133,7 +130,7 @@ class $CONTROLLER$Controller extends Controller
     {
         $$SINGULAR$ = $this->repository->find($id);
 
-        return view('$PLURAL$.edit', compact('$SINGULAR$'));
+
     }
 
     /**
@@ -164,7 +161,7 @@ class $CONTROLLER$Controller extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -175,7 +172,7 @@ class $CONTROLLER$Controller extends Controller
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+
         }
     }
 
@@ -199,6 +196,6 @@ class $CONTROLLER$Controller extends Controller
             ]);
         }
 
-        return redirect()->back()->with('message', '$CLASS$ deleted.');
+       
     }
 }
