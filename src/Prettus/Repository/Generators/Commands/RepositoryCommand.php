@@ -121,7 +121,7 @@ class RepositoryCommand extends Command
                 'validator' => $this->option('validator'),
                 'force'     => $this->option('force'),
                 'model'     => $model ,
-                'Cfolder' => str_replace(["\\",'/'], '\\', $this->option('Cfolder')),
+                'Cfolder' => $this->option('Cfolder'),
                 'Connection' =>$this->option('Connection'),
                 'database' =>$this->option('database'),
             ]))->run();
